@@ -1,0 +1,23 @@
+name: Docker Compose Action
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-slim
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+      
+      -
+        name: Set up Docker
+        uses: docker/setup-docker-action@v4
+
+      - name: Run docker compose
+        uses: hoverkraft-tech/compose-action@248470ecc5ed40d8ed3d4480d8260d77179ef579 # v2.4.2
+        with:
+          compose-version: latest
+
+      - name: Execute tests in the running services
+        run: |
+          docker compose up
